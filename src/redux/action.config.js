@@ -1,0 +1,23 @@
+export class ACTIONS {
+  static USERS_INIT = "USERS_INIT"
+  static GET_USERS = "GET_USERS";
+  static GET_USERS_DONE = "GET_USERS_DONE";
+  // static ACCOUNT_ADDED = "ACCOUNT_ADDED";
+
+  // static CLOSE_SNACK = "CLOSE_SNACK";
+  // static LOGIN = "LOGIN";
+  // static LOGIN_DONE = "LOGIN_DONE";
+  // static GET_ACCOUNTS_DONE = "GET_ACCOUNTS_DONE";
+  // static GET_TRANSACTIONS = "GET_TRANSACTIONS"
+  // static GET_OPERATIONS = "GET_OPERATIONS";
+  // static INIT = "INIT"
+
+
+  //new
+  // static DELETE_ACCOUNT_DONE = "DELETE_ACCOUNT_DONE";
+  // static DELETE_ACCOUNT = "DELETE_ACCOUNT";
+  // static UPDATE_ACCOUNT = "UPDATE_ACCOUNT";
+  // static UPDATE_DONE = "UPDATE_DONE"
+
+  // static ORDER_CHECK = "ORDER_CHECK";
+}
