@@ -6,6 +6,8 @@ import {
   deleteUserDone,
   addNewUser,
   addUserDone,
+  updateUser,
+  updateUserDone,
     // accountAdded,
     // getAccountsDone,
    
@@ -25,6 +27,8 @@ import {
     deleteUserDone,
     addNewUser,
     addUserDone,
+    updateUser,
+    updateUserDone
     // accountAdded,
     // updateAccount,
     // getAccountsDone,

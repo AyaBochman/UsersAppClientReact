@@ -51,6 +51,23 @@ export default function reducers(state = {}, action) {
       };
     }
 
+    case ACTIONS.UPDATE_USER_DONE: {
+      let userss = [...state.users];
+      console.log(action.updatedUser)
+      userss.map((user,index)=>{
+        if(user._id == action.updatedUser._id){
+          userss[index] = action.updatedUser
+        }
+
+      })
+    console.log(userss)
+      return {
+        ...state,
+        users: userss
+    
+      };
+    }
+
 
 
     default:

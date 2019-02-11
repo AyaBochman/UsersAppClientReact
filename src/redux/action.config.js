@@ -10,6 +10,9 @@ export class ACTIONS {
   static ADD_USER = "ADD_USER";
   static ADD_USER_DONE = "ADD_USER_DONE";
 
+  //update
+  static UPDATE_USER = "UPDATE_USER";
+  static UPDATE_USER_DONE = "UPDATE_USER_DONE"
   // static ACCOUNT_ADDED = "ACCOUNT_ADDED";
 
   // static CLOSE_SNACK = "CLOSE_SNACK";

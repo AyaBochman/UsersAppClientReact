@@ -11,8 +11,33 @@ import InfiniteScroll from "react-infinite-scroller";
 
 
 
+import Modal from '@material-ui/core/Modal';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
-const styles = {
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50;
+  const left = 50;
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
+
+
+const styles = theme => ({
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
   card: {
     minWidth: 275
   },
@@ -26,15 +51,31 @@ const styles = {
   },
   pos: {
     marginBottom: 12
-  }
-};
+  },
+  paper: {
+    position: 'absolute',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+    outline: 'none',
+  },
+});
 
 
 class UsersPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      open: false,
+      currUser: {
+        userId: "",
+        name: "",
+        balance: 0,
+        gender: ""
+      }
+    };
     // this.getAccounts = this.getAccounts.bind(this);
     // this.sortBy = this.sortBy.bind(this)
   }
@@ -44,17 +85,50 @@ class UsersPage extends Component {
   }
 
   componentDidMount = () => {
-    
+
     this.props.actions.init();
     this.props.actions.getUsers();
 
   };
 
-  openModal = (user) =>{
-console.log(user)
+  openModal = (user) => {
+    console.log(user)
+    this.setState({
+      open: true,
+      currUser: user
+    })
+    console.log(this.state.currUser)
   }
 
-  
+  handleClose = () => {
+    this.setState({ open: false });
+  }
+
+  handleChange = e => {
+    let currUser = {
+      ...this.state.currUser,
+      [e.currentTarget.name]: e.target.value
+    };
+    console.log(currUser)
+    this.setState({
+      currUser: currUser
+    });
+    // let updatedUser = {
+    //   ...this.state.updatedUser,
+    //   [e.currentTarget.name]: e.target.value
+    // };
+    // this.setState({
+    //   currUser:e.target.value
+    // });
+  }
+
+  saveUpdate = () =>{
+    this.props.actions.updateUser(this.state.currUser)
+    this.setState({
+      open: false
+    })
+  }
+
   // componentWillReceiveProps(nextProps) {
   //   this.setState({
   //     skip: nextProps.users.length
@@ -80,8 +154,9 @@ console.log(user)
 
 
   render() {
-    console.log("hey component")
-    console.log(this.props.users)
+    const { classes } = this.props;
+ 
+    // console.log(this.props.users)
     const { users } = this.props;
     return (
       <div className="container">
@@ -112,6 +187,8 @@ console.log(user)
                   <div>{currUser.gender} </div>
                   <div>{currUser.company} </div>
 
+
+
                   {/* DELETE BUTTON */}
                   <button
                     className={"btn btn-danger"}
@@ -133,12 +210,71 @@ console.log(user)
                     EDIT
                       </button>
                 </div>
+                <div>
 
+
+
+                </div>
 
               </div>
             );
           })}
 
+          {/* modal */}
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={this.state.open}
+            onClose={this.handleClose}
+          >
+            <div style={getModalStyle()} className={classes.paper}>
+              <TextField
+                id="standard-name"
+                label="Name"
+                name="name"
+                className={classes.textField}
+                value={this.state.currUser.name}
+                onChange={this.handleChange}
+                margin="normal"
+              />
+              <TextField
+                id="standard-name"
+                label="Balance"
+                name="balance"
+                className={classes.textField}
+                value={this.state.currUser.balance}
+                onChange={this.handleChange}
+                margin="normal"
+              />
+              <TextField
+                id="standard-name"
+                label="userId"
+                name="userId"
+                className={classes.textField}
+                value={this.state.currUser.userId}
+                onChange={this.handleChange}
+                margin="normal"
+              />
+              <TextField
+                id="standard-name"
+                label="Gender"
+                name="gender"
+                className={classes.textField}
+                value={this.state.currUser.gender}
+                onChange={this.handleChange}
+                margin="normal"
+              />
+
+              <button className={"btn btn-success"}
+             onClick={
+              this.saveUpdate
+             
+             
+            }>Save
+              </button>
+
+            </div>
+          </Modal>
 
         </div>
       </div>
@@ -159,6 +295,8 @@ function mapDispatchToProps(dispatch) {
         init: allActions.init,
         getUsers: allActions.getUsersReq,
         deleteUser: allActions.deleteUser,
+        updateUser: allActions.updateUser
+
 
         // init: bankActions.init
       },

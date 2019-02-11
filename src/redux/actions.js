@@ -57,6 +57,23 @@ export const addUserDone = addedUser =>{
 
 }
 
+export const updateUser = updatedUser =>{
+  console.log(updatedUser)
+  console.log("update user")
+  return {
+    type: ACTIONS.UPDATE_USER,
+    updatedUser
+  };
+
+}
+
+
+export const updateUserDone = updatedUser => {
+  return {
+    type: ACTIONS.UPDATE_USER_DONE,
+    updatedUser
+  };
+}
 
 
 

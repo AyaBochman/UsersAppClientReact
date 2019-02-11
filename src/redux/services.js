@@ -3,7 +3,7 @@ import axios from "axios";
 const mainUrl = "http://localhost:2200/users";
 
 
-export const getUsersService = async ()=> {
+export const getUsersService = async () => {
   return new Promise((resolve, reject) => {
     axios
       .get(`http://localhost:2200/users/`, {
@@ -18,32 +18,45 @@ export const getUsersService = async ()=> {
         reject(err);
       });
   });
-  };
+};
 
-  export const delUsersService = async _id => {
-    console.log("in service")
-    console.log(_id)
-    let response = await axios
-      .delete(`http://localhost:2200/users/${_id }`)
-      .then(response => {
-        return response.data;
-      });
-    return response;
-  };
+export const delUsersService = async _id => {
+  console.log("in service")
+  console.log(_id)
+  let response = await axios
+    .delete(`http://localhost:2200/users/${_id}`)
+    .then(response => {
+      return response.data;
+    });
+  return response;
+};
 
 
-  export const addUserService = async newUser => {
-    let newuser = newUser.newUser
-    let response = await axios
+export const addUserService = async newUser => {
+  let newuser = newUser.newUser
+  let response = await axios
     .post(`http://localhost:2200/users/add-user`, {
       newuser
-    }).then(response =>{
+    }).then(response => {
       return response;
     })
-    return response;
-    
-    
-  }
+  return response;
+
+
+}
+
+export const updateUsersService = async updatedUser => {
+  console.log(updatedUser)
+  let response = await axios
+    .put(`http://localhost:2200/users/update-user`, {
+      updatedUser
+    })
+    .then(response => {
+      return response;
+    });
+  return response;
+
+}
 
   //operations
 //   export const postOperationsService = async action => {
@@ -68,7 +81,7 @@ export const getUsersService = async ()=> {
 //     // console.log(action.currUser.username)
 //     // console.log(action.currUser.password)
 //     let currUser = {username:action.currUser.username, password: action.currUser.password}
- 
+
 //     let response = await fetch("http://localhost:2200/login", {
 //     method: "POST",
 //     headers: {
@@ -83,12 +96,12 @@ export const getUsersService = async ()=> {
 //     let data = await response.json();
 //     console.log("this is the data")
 //     console.log(data);
-  
+
 //       return data;
 //   }else{
 //     console.log("wronggg")
 //   }
- 
+
 //   };
 
 //   //new
@@ -96,7 +109,7 @@ export const getUsersService = async ()=> {
 //     let result = await deleteById(action.id);
 //     return result;
 //   };
-  
+
 //   const deleteById = id => {
 //     return new Promise((resolve, reject) => {
 //       axios.delete(`${mainUrl}/${id}`).then(response => {
@@ -104,7 +117,7 @@ export const getUsersService = async ()=> {
 //       });
 //     });
 //   };
-  
+
 //   export const updateAccountsService = async action => {
 //     let result = await updateById(
 //       action.accountId,
@@ -113,7 +126,7 @@ export const getUsersService = async ()=> {
 //     );
 //     return result;
 //   };
-  
+
 //   export const updateById = (accountId, operation, amount) => {
 //     return new Promise((resolve, reject) => {
 //       axios
