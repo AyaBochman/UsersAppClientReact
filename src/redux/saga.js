@@ -1,11 +1,10 @@
 import { takeEvery, fork, call, put } from "redux-saga/effects";
-import {
-  getUsersDone,
-  
-} from "./actions";
+import { all } from 'redux-saga/effects'
 //services/
 import {
-  getUsersService
+  getUsersService,
+  delUsersService,
+  addUserService
 //   getAccountsService,
 //   postLoginService,
 // postOperationsService,
@@ -13,59 +12,62 @@ import {
 //   updateAccountsService,
 //   orderCheckService
 } from "./services";
+import {allActions} from "./index";
 import { ACTIONS } from "./action.config";
 
 
 function* getUsers(action) {
   try {
-    console.log("im in saga")
+    // console.log("im in saga")
     const users = yield call(getUsersService,action);
-    console.log(users)
-    yield put(getUsersDone(users));
+    // console.log(users)
+    yield put(allActions.getUsersDone(users));
   } catch (ex) {
     //   todo  yield put error action \ no accounts account
   }
 }
 
 function* GetUsers() {
-  console.log("GetUsers in saga");
+  // console.log("GetUsers in saga");
   console.log(ACTIONS.GET_USERS)
   yield takeEvery(ACTIONS.GET_USERS, getUsers);
 }
 
+//delete
+function* deleteUser(action) {
+  console.log("im in saga delete")
+  console.log(action.id)
+  try {
+    const delUser = yield call(delUsersService, action.id);
+    yield put(allActions.deleteUserDone(delUser));
+    // yield put(init());
+    // yield put(getAccountFromApi(0, 20));
+  } catch (ex) {
+    //   todo  yield put error action \ no accounts account
+  }
+}
 
+function* DeleteUser() {
+  yield takeEvery(ACTIONS.DELETE_USER, deleteUser);
+}
 
-// function* getAccounts(action) {
-//   try {
-//     const accounts = yield call(getAccountsService, action);
+//add
+function* addUser(action){
+  try {
+    const addedUser = yield call(addUserService, action);
+    console.log(addedUser)
+    yield put(allActions.addUserDone(addedUser.data));
+    // yield put(init());
+    // yield put(getAccountFromApi(0, 20));
+  } catch (ex) {
+    //   todo  yield put error action \ no accounts account
+  }
+}
 
-//     yield put(getAccountsDone(accounts));
-//   } catch (ex) {
-//     //   todo  yield put error action \ no accounts account
-//   }
-// }
+function* AddUser() {
+  yield takeEvery(ACTIONS.ADD_USER, addUser);
+}
 
-// function* GetAccounts() {
-//   console.log("GetAccounts");
-//   yield takeEvery(ACTIONS.GET_ACCOUNTS, getAccounts);
-// }
-
-//login
-// function* loginUser(action) {
-//   try {
-//     const currentUser = yield call(postLoginService, action );
-//     console.log("hi im in saga")
-//     console.log(action)
-//     console.log(currentUser)
-//     yield put(loginDone(currentUser));
-//   } catch (ex) {
-//     //   todo  yield put error action 
-//   }
-// }
-
-// function* GetLogin(){
-//   yield takeEvery(ACTIONS.LOGIN, loginUser);
-// }
 
 
 // //operations
@@ -98,16 +100,7 @@ function* GetUsers() {
 
 // //new
 
-// function* deleteAccount(action) {
-//   try {
-//     const del = yield call(delAccountsService, action);
-//     yield put(deleteAccountDone(action.id));
-//     // yield put(init());
-//     // yield put(getAccountFromApi(0, 20));
-//   } catch (ex) {
-//     //   todo  yield put error action \ no accounts account
-//   }
-// }
+
 
 // function* updateAccount(action) {
 //   try {
@@ -122,16 +115,14 @@ function* GetUsers() {
 //   }
 // }
 
-// function* DeleteAccount() {
-//   yield takeEvery(ACTIONS.DELETE_ACCOUNT, deleteAccount);
-// }
+
 
 // function* UpdateAccount() {
 //   yield takeEvery(ACTIONS.UPDATE_ACCOUNT, updateAccount);
 // }
 
 function* rootSaga() {
-  yield [fork(GetUsers)];
+  yield all([fork(GetUsers), fork(DeleteUser), fork(AddUser)]);
 }
 
 // fork(GetOperations), fork(GetLogin), fork(DeleteAccount),

@@ -1,7 +1,15 @@
 export class ACTIONS {
-  static USERS_INIT = "USERS_INIT"
+  static INIT = "INIT"
   static GET_USERS = "GET_USERS";
   static GET_USERS_DONE = "GET_USERS_DONE";
+//delete
+  static DELETE_USER = "DELETE_USER";
+  static DELETE_USER_DONE = "DELETE_USER_DONE";
+
+  //add
+  static ADD_USER = "ADD_USER";
+  static ADD_USER_DONE = "ADD_USER_DONE";
+
   // static ACCOUNT_ADDED = "ACCOUNT_ADDED";
 
   // static CLOSE_SNACK = "CLOSE_SNACK";
@@ -14,8 +22,7 @@ export class ACTIONS {
 
 
   //new
-  // static DELETE_ACCOUNT_DONE = "DELETE_ACCOUNT_DONE";
-  // static DELETE_ACCOUNT = "DELETE_ACCOUNT";
+
   // static UPDATE_ACCOUNT = "UPDATE_ACCOUNT";
   // static UPDATE_DONE = "UPDATE_DONE"
 

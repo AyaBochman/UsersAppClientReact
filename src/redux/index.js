@@ -1,22 +1,30 @@
 import {
-  initApp,
+  init,
   getUsersReq,
-  getUsersDone
+  getUsersDone,
+  deleteUser,
+  deleteUserDone,
+  addNewUser,
+  addUserDone,
     // accountAdded,
     // getAccountsDone,
    
     // deleteAccount,
     // init,
-    // deleteAccountDone,
+ 
     // updateAccount,
     // updateDone,
     // orderCheck
   } from "./actions";
   
   export const allActions = {
-    initApp,
+    init,
     getUsersReq,
-    getUsersDone
+    getUsersDone,
+    deleteUser,
+    deleteUserDone,
+    addNewUser,
+    addUserDone,
     // accountAdded,
     // updateAccount,
     // getAccountsDone,

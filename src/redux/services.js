@@ -3,9 +3,47 @@ import axios from "axios";
 const mainUrl = "http://localhost:2200/users";
 
 
-export const getUsersService = ()=> {
-  return axios.get(`http://localhost:2200/users`);
+export const getUsersService = async ()=> {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`http://localhost:2200/users/`, {
+        withCredentials: true
+      })
+      .then(response => {
+        // console.log(response.data);
+        resolve(response.data);
+        // return response.data;
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
   };
+
+  export const delUsersService = async _id => {
+    console.log("in service")
+    console.log(_id)
+    let response = await axios
+      .delete(`http://localhost:2200/users/${_id }`)
+      .then(response => {
+        return response.data;
+      });
+    return response;
+  };
+
+
+  export const addUserService = async newUser => {
+    let newuser = newUser.newUser
+    let response = await axios
+    .post(`http://localhost:2200/users/add-user`, {
+      newuser
+    }).then(response =>{
+      return response;
+    })
+    return response;
+    
+    
+  }
 
   //operations
 //   export const postOperationsService = async action => {

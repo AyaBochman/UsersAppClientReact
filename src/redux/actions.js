@@ -1,27 +1,65 @@
 import { ACTIONS } from "./action.config";
 
-export const initApp = () => ({
-
-    type: ACTIONS.USERS_INIT
-
-
-});
+export const init = () => {
+  return {
+    type: ACTIONS.INIT
+  };
+};
 
 export const getUsersReq = () => {
-  console.log("inside getusersreq")
-  // console.log(action)
+  console.log("get users action")
+  console.log(ACTIONS.GET_USERS)
+
   return {
     type: ACTIONS.GET_USERS
   };
 };
 
-export const getUsersDone=  users => { 
-  console.log("inside getuserdone")
+export const getUsersDone = users => { 
+  // console.log("inside getuserdone")
   return {
   type: ACTIONS.GET_USERS_DONE,
   users
 };
 }
+
+//delete
+export const deleteUser = id => {
+  console.log(id)
+  console.log("im in del user")
+  return {
+    type: ACTIONS.DELETE_USER,
+    id
+  };
+};
+
+export const deleteUserDone = id => {
+  console.log("im in del user done")
+  return {
+    type: ACTIONS.DELETE_USER_DONE,
+    id
+  };
+}
+
+export const addNewUser = newUser =>{
+  return {
+    type: ACTIONS.ADD_USER,
+    newUser
+  };
+
+}
+
+export const addUserDone = addedUser =>{
+  return {
+    type: ACTIONS.ADD_USER_DONE,
+    addedUser
+  };
+
+}
+
+
+
+
 // export const accountAdded = newAccount => {
 //   return {
 //     type: ACTIONS.ACCOUNT_ADDED,
@@ -83,19 +121,8 @@ export const getUsersDone=  users => {
 // };
 
 // //new
-// export const deleteAccount = id => {
-//   return {
-//     type: ACTIONS.DELETE_ACCOUNT,
-//     id
-//   };
-// };
 
-// export const deleteAccountDone = id => {
-//   return {
-//     type: ACTIONS.DELETE_ACCOUNT_DONE,
-//     id
-//   };
-// };
+
 
 // export const updateAccount = (accountId, operation, amount) => {
 //   console.log("the operation")

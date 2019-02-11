@@ -10,6 +10,8 @@ import { allActions } from "../../redux/index";
 import InfiniteScroll from "react-infinite-scroller";
 
 
+
+
 const styles = {
   card: {
     minWidth: 275
@@ -27,30 +29,32 @@ const styles = {
   }
 };
 
+
 class UsersPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { users: "" };
+    this.state = {};
     // this.getAccounts = this.getAccounts.bind(this);
     // this.sortBy = this.sortBy.bind(this)
   }
 
-componentWillMount = ()=>{
-  // this.props.actions.getUsers();
-}
+  componentWillMount = () => {
+    // this.props.actions.getUsers();
+  }
 
   componentDidMount = () => {
-    this.props.actions.initApp();
-    // this.props.actions.getUsers();
+    
+    this.props.actions.init();
     this.props.actions.getUsers();
-    // this.props.actions.getUsers(
-    //   this.state.skip,
-    //   this.state.limit,
-    //   this.state.sort
-    // );
+
   };
 
+  openModal = (user) =>{
+console.log(user)
+  }
+
+  
   // componentWillReceiveProps(nextProps) {
   //   this.setState({
   //     skip: nextProps.users.length
@@ -59,50 +63,83 @@ componentWillMount = ()=>{
 
   // componentDidMount() {
   //   // this.props.actions.init();
-    
-   
+
+
   // }
 
-//   sortBy(e){
-//     this.props.actions.init();
-//     this.props.actions.getAccounts(this.state.skip, 
-//       this.state.take, 
-//       e.currentTarget.innerText);
-//     // this.setState({
-//     //   ...this.state,
-//     //   sort: e.currentTarget.innerText
-//     // })
-//   }
-  
+  //   sortBy(e){
+  //     this.props.actions.init();
+  //     this.props.actions.getAccounts(this.state.skip, 
+  //       this.state.take, 
+  //       e.currentTarget.innerText);
+  //     // this.setState({
+  //     //   ...this.state,
+  //     //   sort: e.currentTarget.innerText
+  //     // })
+  //   }
+
 
   render() {
-    // console.log(this.state.users)
+    console.log("hey component")
+    console.log(this.props.users)
     const { users } = this.props;
     return (
       <div className="container">
+        <h1>My Users</h1>
         <div className="row">
-       <h1>My Users</h1>
-{/*    
-      <InfiniteScroll
-        loadMore={() => {
-          this.props.actions.getAccounts(
-            this.state.skip,
-            this.state.limit,
-            this.state.sort
-          );
-        }}
-        hasMore={this.props.hasMore}
-        initialLoad={false}
-        loader={
-          <div className="loader" key={0}>
-            Loading ...
-          </div>
-        }
-      >
-      
-      </InfiniteScroll> */}
-    
-    
+
+          {this.props.users.map((currUser, index) => {
+            return (
+              <div
+                key={index}
+                style={{ display: "inline", margin: "10px" }}
+                className="col-3"
+              >
+                <div
+                  style={{
+                    border: "1px solid black",
+                    borderRadius: "10px",
+                    height: "150px",
+                    boxShadow: "5px 10px",
+                    position: "relative"
+                  }}
+                >
+                  <Link to={`/user/${currUser.userId}`}>
+                    <h4> {currUser.userId} </h4>
+                  </Link>
+
+                  <div>{currUser.name} </div>
+                  <div>{currUser.gender} </div>
+                  <div>{currUser.company} </div>
+
+                  {/* DELETE BUTTON */}
+                  <button
+                    className={"btn btn-danger"}
+                    style={{ position: "absolute", top: 0, right: 0 }}
+                    onClick={() =>
+                      this.props.actions.deleteUser(currUser.userId)
+                    }
+                  >
+                    X
+                      </button>
+
+                  <button
+                    className={"btn btn-success"}
+                    style={{ position: "absolute", top: 0, left: 0 }}
+                    onClick={() =>
+                      this.openModal(currUser)
+                    }
+                  >
+                    EDIT
+                      </button>
+                </div>
+
+
+              </div>
+            );
+          })}
+
+
         </div>
       </div>
     );
@@ -119,10 +156,10 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(
       {
-        initApp: allActions.initApp,
+        init: allActions.init,
         getUsers: allActions.getUsersReq,
-        // usersHere: allActions.getUsersDone
-        // deleteAccount: bankActions.deleteAccount,
+        deleteUser: allActions.deleteUser,
+
         // init: bankActions.init
       },
       dispatch

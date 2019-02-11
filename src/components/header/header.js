@@ -50,21 +50,21 @@ class Header extends Component {
  
     return (
       <div>
-        {/* <Navbar>
-          <Navbar.Header>
-            <Navbar.Brand> */}
-              <h1>MyApp</h1>
-            {/* </Navbar.Brand>
-            <Navbar.Brand> */}
-              {/* <Link to="/users"> Users </Link> */}
-            {/* </Navbar.Brand> */}
+        <Navbar>
+          {/* <Navbar.Header> */}
+            <Navbar.Brand>
+            <Link to="/users"> My App</Link>
+            </Navbar.Brand>
             {/* <Navbar.Brand>
+              <Link to="/users"> Users </Link>
+            </Navbar.Brand>
+            <Navbar.Brand>
               <Link to="/bank-details"> Bank </Link>
-            </Navbar.Brand>
+            </Navbar.Brand> */}
             <Navbar.Brand>
-              <Link to="/add-account"> Add New Account </Link>
+              <Link to="/add-user"> Add New User </Link>
             </Navbar.Brand>
-            <Navbar.Brand>
+            {/* <Navbar.Brand>
               <Link to="/operations"> Account Operations </Link>
             </Navbar.Brand>
             <Navbar.Brand>
@@ -74,7 +74,7 @@ class Header extends Component {
           {/* {this.state.currentUser.length > 0 &&  <h3>Hello {this.state.currentUser}</h3>} */}
  
          
-        {/* </Navbar> */}
+        </Navbar>
       </div>
     );
   }

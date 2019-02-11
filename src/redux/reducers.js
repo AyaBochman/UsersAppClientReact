@@ -3,27 +3,78 @@ import { ACTIONS } from "./action.config";
 export default function reducers(state = {}, action) {
   switch (action.type) {
 
-    case ACTIONS.USERS_INIT: {
+    case ACTIONS.INIT: {
+      // console.log("im in init")
       return {
         ...state,
         users: []
       };
     }
-    // case ACTIONS.GET_USERS:
+
+    case ACTIONS.GET_USERS_DONE: {
+      // console.log("inside get users done")
+      let users = [];
+
+      users = state.users.concat(action.users);
+
+      return {
+        ...state,
+        users: users
+      };
+    }
+
+    case ACTIONS.DELETE_USER_DONE: {
+ 
+      const deletedId = action.id;
+ 
+      let currentUsersArray = [...state.users];
+      let newUsersArray = currentUsersArray.filter((user) => {
+  
+        return user.userId != deletedId;
+      
+      });
+      
+    
+      return {
+        ...state,
+        users: newUsersArray
+      };
+    }
+
+    case ACTIONS.ADD_USER_DONE: {
+      console.log(action.addedUser)
+      let users = [];
+      users = state.users.concat(action.addedUser);
+      return {
+        ...state,
+        users: users
+      };
+    }
+
+
+
+    default:
+      console.log("default")
+      return state;
+  }
+}
+
+
+// case ACTIONS.GET_USERS:
     // console.log("from reducer get users")
     // return {
     //   users: '',
-    
+
     // };
-    case ACTIONS.GET_USERS_DONE: {
-      console.log("from reducer")
-      let theusers = [...state.users, ...action.users];
-      // console.log(action.users)
-      return {
-        ...state,
-        users: theusers
-      };
-    }
+    // case ACTIONS.GET_USERS_DONE: {
+    //   console.log("from reducer")
+    //   let theusers = [...state.users, ...action.users];
+    //   // console.log(action.users)
+    //   return {
+    //     ...state,
+    //     users: theusers
+    //   };
+    // }
     // case ACTIONS.INIT: {
     //   return {
     //     accounts: [],
@@ -48,7 +99,7 @@ export default function reducers(state = {}, action) {
 
 
 
- 
+
 // //operations
 //     case ACTIONS.GET_OPERATIONS:{
 //       return {
@@ -58,21 +109,7 @@ export default function reducers(state = {}, action) {
 //     }
 
 //     //new
-// case ACTIONS.DELETE_ACCOUNT_DONE: {
-//   const deletedId = action.id;
-//   let currentAccountsArray = [...state.accounts];
-//   let found = currentAccountsArray.findIndex((account, index) => {
-//     return account._id == deletedId;
-//   });
-//   if (found) {
-//     currentAccountsArray.splice(found, 1);
-//   }
 
-//   return {
-//     ...state,
-//     accounts: currentAccountsArray
-//   };
-// }
 
 // //update
 // case ACTIONS.UPDATE_DONE: {
@@ -85,12 +122,4 @@ export default function reducers(state = {}, action) {
 //   }
 
 // }
-
-
-    default:
-    console.log("default")
-      return state;
-  }
-}
-
 

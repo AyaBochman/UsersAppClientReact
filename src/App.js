@@ -6,9 +6,16 @@ import { BrowserRouter, Link, Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import UsersPage from "./components/users/users-page"
+import User from "./components/users/user"
 import { allActions } from "./redux/index";
+import AddUser from './components/users/add-user';
 
 class App extends Component {
+constructor(props){
+super(props)
+//*
+}
+
   render() {
     return (
       <BrowserRouter>
@@ -19,6 +26,12 @@ class App extends Component {
               {/* routes */}
             <Switch>
               <Route key="users" path="/users" component={UsersPage} />
+              <Route
+                key="user"
+                exact={true}
+                path="/user/:id"
+                component={User}
+              />
               {/* <Route key="operations" path="/operations" component={accountOperation} />
               <Route key="login" path="/login" component={Login} />
               <Route key="order" path="/order-check" component={checkOrder} />
@@ -26,13 +39,13 @@ class App extends Component {
                 key="bank-details"
                 path="/bank-details"
                 component={BankDetails}
-              />
+              /> */}
               <Route
-                key="add-account"
-                path="/add-account"
-                component={addAccount}
+                key="add-user"
+                path="/add-user"
+                component={AddUser}
               />
-              <Route
+              {/* <Route
                 key="account"
                 exact={true}
                 path="/account/:id"
@@ -48,13 +61,13 @@ class App extends Component {
 }
 
 
-// function mapStateToProps(state) {
-//   return {
-//     snackBarStatus: state.snackBarStatus,
-//     message: state.message
+function mapStateToProps(state) {
+  return {
+    users: state.users || [],
+   
     
-//   };
-// }
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -70,4 +83,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);

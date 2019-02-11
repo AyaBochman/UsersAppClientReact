@@ -3,15 +3,17 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from "react-redux";
-
+// import axios from "axios";
 import { createStore, applyMiddleware } from "redux";
 import reducers from "./redux/reducers";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./redux/saga";
 
 let sagaMiddleware = createSagaMiddleware();
-let _store = createStore(reducers, applyMiddleware(sagaMiddleware));
+let _store = createStore(reducers, {users: []}, applyMiddleware(sagaMiddleware));
+
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
